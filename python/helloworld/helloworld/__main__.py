@@ -22,7 +22,7 @@ def task(index: int, table: pa.Table) -> Tuple[int, str]:
         filtered = groups.filter(filter)
         print(f"=== Computation ===\n{filtered}\n===================")
 
-    return (index, f"{year}.{month}.{day}")
+    return (index, f"{year}.{month}.{day}.")
 
 
 def callback(future, args):
