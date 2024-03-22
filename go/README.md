@@ -1,6 +1,6 @@
 # Go Arrow
 
-- pkg.go.dev: [arrow](https://pkg.go.dev/github.com/apache/arrow/go)
+- pkg.go.dev: [arrow v15](https://pkg.go.dev/github.com/apache/arrow/go/v15)
 - examples
   - helloworld: [main.go](https://github.com/apache/arrow/blob/main/go/arrow/_examples/helloworld/main.go)
 

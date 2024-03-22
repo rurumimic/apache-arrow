@@ -2,10 +2,11 @@ module github.com/rurumimic/apache-arrow/go/helloworld
 
 go 1.21.3
 
+require github.com/apache/arrow/go/v15 v15.0.2
+
 require (
 	github.com/JohnCGriffin/overflow v0.0.0-20211019200055-46fa312c352c // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
-	github.com/apache/arrow/go/v15 v15.0.2 // indirect
 	github.com/apache/thrift v0.19.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect

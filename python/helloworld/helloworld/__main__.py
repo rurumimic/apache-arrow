@@ -6,7 +6,7 @@ import pyarrow as pa
 import pyarrow.compute as pc
 import pyarrow.parquet as pq
 
-DEST_DIR = "out"
+DEST_DIR = "."
 MAX_WORKERS = 3
 
 
@@ -14,10 +14,12 @@ def task(index: int, table: pa.Table) -> Tuple[int, str]:
     year = table["years"][index].as_py()
     month = table["months"][index].as_py()
     day = table["days"][index].as_py()
-    
+
     # Some computation
     if index == 0:
-        groups = table.group_by("years").aggregate([("months", "count"), ("days", "count")])
+        groups = table.group_by("years").aggregate(
+            [("months", "count"), ("days", "count")]
+        )
         filter = pc.equal(groups["days_count"], 2)
         filtered = groups.filter(filter)
         print(f"=== Computation ===\n{filtered}\n===================")
@@ -73,4 +75,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

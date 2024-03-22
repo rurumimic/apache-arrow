@@ -17,9 +17,12 @@ import (
 
 var wg sync.WaitGroup
 
-func TaskTable(index int, table arrow.Table) {
-	defer wg.Done()
+type Result struct {
+	index    int
+	birthday string
+}
 
+func TaskTable(index int, table arrow.Table) {
 	year := table.Column(0).Data().Chunks()[0].(*array.Int16).Value(index)
 	month := table.Column(1).Data().Chunks()[0].(*array.Int8).Value(index)
 	day := table.Column(2).Data().Chunks()[0].(*array.Int8).Value(index)
@@ -27,40 +30,43 @@ func TaskTable(index int, table arrow.Table) {
 	fmt.Printf("Task %d: %d.%d.%d.\n", index, year, month, day)
 }
 
-func TaskRecord(index int, record arrow.Record) {
+func TaskRecord(results chan interface{}, index int, record arrow.Record) {
 	defer wg.Done()
 
 	year := record.Column(0).(*array.Int16).Value(index)
 	month := record.Column(1).(*array.Int8).Value(index)
 	day := record.Column(2).(*array.Int8).Value(index)
 
-	fmt.Printf("Task %d: %d.%d.%d.\n", index, year, month, day)
-
 	if index == 0 {
 
-		ctx := context.Background()
-		allocator := memory.NewGoAllocator()
-		mb := array.NewBooleanBuilder(allocator)
-		defer mb.Release()
+		conditions := make([]bool, record.NumRows())
 
 		for i := 0; i < int(record.NumRows()); i++ {
 			if record.Column(0).(*array.Int16).Value(i) == 2000 {
-				mb.Append(true)
-			} else {
-				mb.Append(false)
+				conditions[i] = true
 			}
 		}
 
-		mask := mb.NewArray()
+		ctx := context.Background()
+		allocator := memory.NewGoAllocator()
+		builder := array.NewBooleanBuilder(allocator)
+		defer builder.Release()
+
+		builder.AppendValues(conditions, nil)
+		mask := builder.NewArray().(*array.Boolean)
+		defer mask.Release()
 
 		filtered, err := compute.FilterRecordBatch(ctx, record, mask, compute.DefaultFilterOptions())
 		if err != nil {
 			panic(err)
 		}
 
-		fmt.Println(filtered)
+		msg := fmt.Sprintf("=== Computation ===\n%v\n===================", filtered)
+		fmt.Println(msg)
 
 	}
+
+	results <- Result{index: index, birthday: fmt.Sprintf("%d.%d.%d.", year, month, day)}
 }
 
 func DisplayTable(table arrow.Table) {
@@ -82,7 +88,7 @@ func DisplayTable(table arrow.Table) {
 }
 
 func WriteTable(table arrow.Table) {
-	file, err := os.Create("out/birthday.parquet")
+	file, err := os.Create("./birthdays.parquet")
 	if err != nil {
 		panic(err)
 	}
@@ -128,13 +134,23 @@ func main() {
 	table := array.NewTableFromRecords(schema, []arrow.Record{record})
 	defer table.Release()
 
-	DisplayTable(table)
+	// DisplayTable(table)
 	WriteTable(table)
 
+	// Multiple tasks
+	results := make(chan interface{}, record.NumRows())
 	for i := 0; i < int(record.NumRows()); i++ {
 		wg.Add(1)
-		go TaskRecord(i, record)
+		go TaskRecord(results, i, record)
 	}
 	wg.Wait()
+
+	close(results)
+
+	for result := range results {
+		index := result.(Result).index
+		birthday := result.(Result).birthday
+		fmt.Printf("Task %d: %s\n", index, birthday)
+	}
 
 }
