@@ -1,10 +1,98 @@
 birthdays.parquet
 
-# Created by https://www.toptal.com/developers/gitignore/api/vim,tags,emacs,linux,macos,ansible,windows,powershell,certificates,visualstudiocode,go,python,rust
-# Edit at https://www.toptal.com/developers/gitignore?templates=vim,tags,emacs,linux,macos,ansible,windows,powershell,certificates,visualstudiocode,go,python,rust
+# Created by https://www.toptal.com/developers/gitignore/api/c,go,c++,vim,rust,tags,emacs,linux,macos,python,windows,powershell,apachehadoop,certificates,visualstudiocode,cmake,ninja,vcpkg
+# Edit at https://www.toptal.com/developers/gitignore?templates=c,go,c++,vim,rust,tags,emacs,linux,macos,python,windows,powershell,apachehadoop,certificates,visualstudiocode,cmake,ninja,vcpkg
 
-### Ansible ###
-*.retry
+### ApacheHadoop ###
+*.iml
+*.ipr
+*.iws
+*.orig
+*.rej
+.idea
+.svn
+.classpath
+.project
+.settings
+target
+hadoop-common-project/hadoop-kms/downloads/
+hadoop-hdfs-project/hadoop-hdfs/downloads
+hadoop-hdfs-project/hadoop-hdfs-httpfs/downloads
+hadoop-common-project/hadoop-common/src/test/resources/contract-test-options.xml
+hadoop-tools/hadoop-openstack/src/test/resources/contract-test-options.xml
+
+### C ###
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+### C++ ###
+# Prerequisites
+
+# Compiled Object files
+*.slo
+
+# Precompiled Headers
+
+# Compiled Dynamic libraries
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+
+# Executables
 
 ### certificates ###
 *.pem
@@ -13,6 +101,23 @@ birthdays.parquet
 *.cer
 *.der
 *.priv
+
+### CMake ###
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+### CMake Patch ###
+# External projects
+*-prefix/
 
 ### Emacs ###
 # -*- mode: gitignore; -*-
@@ -70,17 +175,12 @@ flycheck_*.el
 # https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
 #
 # Binaries for programs and plugins
-*.exe
 *.exe~
-*.dll
-*.so
-*.dylib
 
 # Test binary, built with `go test -c`
 *.test
 
 # Output of the go coverage tool, specifically when used with LiteIDE
-*.out
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
@@ -134,6 +234,10 @@ Temporary Items
 ### macOS Patch ###
 # iCloud generated files
 *.icloud
+
+### Ninja ###
+.ninja_deps
+.ninja_log
 
 ### PowerShell ###
 # Exclude packaged modules
@@ -324,7 +428,6 @@ Cargo.lock
 **/*.rs.bk
 
 # MSVC Windows builds of rustc generate these, which store debugging information
-*.pdb
 
 ### Tags ###
 # Ignore tags created by etags, ctags, gtags (GNU global) and cscope
@@ -344,6 +447,14 @@ cscope.out
 cscope.in.out
 cscope.po.out
 
+
+### vcpkg ###
+# Vcpkg
+
+vcpkg-manifest-install.log
+
+## Manifest Mode
+vcpkg_installed/
 
 ### Vim ###
 # Swap
@@ -409,5 +520,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/vim,tags,emacs,linux,macos,ansible,windows,powershell,certificates,visualstudiocode,go,python,rust
+# End of https://www.toptal.com/developers/gitignore/api/c,go,c++,vim,rust,tags,emacs,linux,macos,python,windows,powershell,apachehadoop,certificates,visualstudiocode,cmake,ninja,vcpkg
 
