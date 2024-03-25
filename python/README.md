@@ -4,10 +4,12 @@
 
 ## Install
 
+Python 3.10
+
 ### pyenv
 
 ```bash
-pip virtualenv 3.y.z arrow
+pip virtualenv 3.10.z arrow
 pyenv activate arrow
 ```
 
