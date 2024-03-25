@@ -10,7 +10,9 @@
   "features": {
     "ghcr.io/devcontainers/features/java:1": {
       "version": "8"
-    }
+    },
+    "ghcr.io/devcontainers/features/go:1": {},
+    "ghcr.io/devcontainers/features/rust:1": {}
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
