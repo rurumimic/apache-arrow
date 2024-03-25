@@ -31,3 +31,22 @@ Launch a Apache Arrow development environment:
 cd /workspace/python/helloworld
 python -m helloworld
 ```
+
+### Attach to Hadoop Nodes
+
+```bash
+docker exec -it apache-arrow_devcontainer-namenode-1 bash
+docker exec -it apache-arrow_devcontainer-datanode-1 bash
+```
+
+```bash
+hdfs dfs -ls -R /
+
+drwxr-xr-x   - vscode supergroup          0 2024-03-25 02:59 /user
+drwxr-xr-x   - vscode supergroup          0 2024-03-25 02:59 /user/vscode
+-rw-r--r--   3 vscode supergroup       1247 2024-03-25 02:59 /user/vscode/birthdays.parquet
+drwxr-xr-x   - vscode supergroup          0 2024-03-25 02:59 /user/vscode/output
+-rw-r--r--   3 vscode supergroup       1207 2024-03-25 02:59 /user/vscode/output/0.parquet
+-rw-r--r--   3 vscode supergroup       1207 2024-03-25 02:59 /user/vscode/output/1.parquet
+-rw-r--r--   3 vscode supergroup       1207 2024-03-25 02:59 /user/vscode/output/2.parquet
+``
